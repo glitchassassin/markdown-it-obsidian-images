@@ -13,9 +13,6 @@ module.exports = (options) => {
     uriSuffix: '.png',
     htmlAttributes: {
     },
-    generatePageNameFromLabel: (label) => {
-      return label
-    },
     postProcessPageName: (pageName) => {
       pageName = pageName.trim()
       pageName = pageName.split('/').map(sanitize).join('/')
@@ -23,7 +20,7 @@ module.exports = (options) => {
       return pageName
     },
     postProcessLabel: (label) => {
-      label = label.trim().replace(/"/, '&quot;').replace(/</, '&lt;').replace(/&/, '&amp;')
+      label = label.trim().replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
       return label
     }
   }
@@ -46,21 +43,14 @@ module.exports = (options) => {
       let href = ''
       let htmlAttrs = []
       let htmlAttrsString = ''
-      const isSplit = !!match[3]
-      if (isSplit) {
-        label = match[3]
-        pageName = match[1]
-      }
-      else {
-        label = match[1]
-        pageName = options.generatePageNameFromLabel(label)
-      }
+      pageName = match[1]
+      label = match[3] || ''
 
       label = options.postProcessLabel(label)
       pageName = options.postProcessPageName(pageName)
 
       // make sure none of the values are empty
-      if (!label || !pageName) {
+      if (!pageName) {
         return match.input
       }
 
@@ -74,7 +64,7 @@ module.exports = (options) => {
       href = utils.escape(href)
 
       htmlAttrs.push(`src="${href}"`)
-      htmlAttrs.push(`alt="${label}"`)
+      if (label) htmlAttrs.push(`alt="${label}"`)
       for (let attrName in options.htmlAttributes) {
         const attrValue = options.htmlAttributes[attrName]
         htmlAttrs.push(`${attrName}="${attrValue}"`)
