@@ -1,7 +1,7 @@
 {
-  "name": "markdown-it-wikilinks",
+  "name": "markdown-it-obsidian-images",
   "version": "1.2.0",
-  "description": "WikiMedia-style links for the markdown-it parser",
+  "description": "Obsidian-compatible image syntax for the markdown-it parser",
   "main": "index.js",
   "scripts": {
     "coverage": "rimraf coverage && istanbul cover node_modules/.bin/_mocha",
@@ -18,16 +18,15 @@
     "markdown-it-plugin",
     "markdown-it",
     "markdown",
-    "wiki-links",
-    "wikimedia",
-    "wiki"
+    "images",
+    "obsidian"
   ],
-  "author": "Julio Sepia <jsepia@juliosepia.com>",
+  "author": "Jon Winsley <jon.winsley@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jsepia/markdown-it-wikilinks/issues"
+    "url": "https://github.com/glitchassassin/markdown-it-obsidian-images/issues"
   },
-  "homepage": "https://github.com/jsepia/markdown-it-wikilinks#readme",
+  "homepage": "https://github.com/jsepia/markdown-it-obsidian-images#readme",
   "devDependencies": {
     "coveralls": "^3.1.1",
     "eslint": "^8.1.0",

@@ -10,7 +10,7 @@ module.exports = (options) => {
     baseURL: '/',
     relativeBaseURL: './',
     makeAllLinksAbsolute: false,
-    uriSuffix: '.html',
+    uriSuffix: '.png',
     htmlAttributes: {
     },
     generatePageNameFromLabel: (label) => {
@@ -23,7 +23,7 @@ module.exports = (options) => {
       return pageName
     },
     postProcessLabel: (label) => {
-      label = label.trim()
+      label = label.trim().replace(/"/, '&quot;').replace(/</, '&lt;').replace(/&/, '&amp;')
       return label
     }
   }
@@ -39,7 +39,7 @@ module.exports = (options) => {
   }
 
   return Plugin(
-    /\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\]/,
+    /!\[\[([^|\]\n]+)(\|([^\]\n]+))?\]\]/,
     (match, utils) => {
       let label = ''
       let pageName = ''
@@ -73,14 +73,15 @@ module.exports = (options) => {
       }
       href = utils.escape(href)
 
-      htmlAttrs.push(`href="${href}"`)
+      htmlAttrs.push(`src="${href}"`)
+      htmlAttrs.push(`alt="${label}"`)
       for (let attrName in options.htmlAttributes) {
         const attrValue = options.htmlAttributes[attrName]
         htmlAttrs.push(`${attrName}="${attrValue}"`)
       }
       htmlAttrsString = htmlAttrs.join(' ')
 
-      return `<a ${htmlAttrsString}>${label}</a>`
+      return `<img ${htmlAttrsString} />`
     }
   )
 }

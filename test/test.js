@@ -6,9 +6,9 @@ const plugin = require('../')()
 
 /*eslint-env mocha*/
 
-describe('markdown-it-wikilinks', function () {
+describe('markdown-it-obsidian', function () {
   const md = require('markdown-it')()
               .use(plugin);
 
-  generate(path.join(__dirname, 'fixtures/wikilinks.txt'), md);
+  generate(path.join(__dirname, 'fixtures/obsidian.txt'), md);
 });
