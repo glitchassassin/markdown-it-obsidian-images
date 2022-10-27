@@ -98,7 +98,6 @@ The default transform does the following things:
 
 * trim surrounding whitespace
 * [sanitize](https://github.com/parshap/node-sanitize-filename) the string
-* replace spaces with underscores
 
 #### Example
 

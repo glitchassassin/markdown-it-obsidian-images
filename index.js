@@ -16,7 +16,6 @@ module.exports = (options) => {
     postProcessPageName: (pageName) => {
       pageName = pageName.trim()
       pageName = pageName.split('/').map(sanitize).join('/')
-      pageName = pageName.replace(/\s+/, '_')
       return pageName
     },
     postProcessLabel: (label) => {

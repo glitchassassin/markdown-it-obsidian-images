@@ -1,64 +1,64 @@
 .
-![[Wiki Link.png]]
+![[Wiki_Image.png]]
 .
-<p><img src="./Wiki_Link.png" /></p>
-.
-
-
-.
-![[Help/Wiki Link.png]]
-.
-<p><img src="./Help/Wiki_Link.png" /></p>
+<p><img src="./Wiki_Image.png" /></p>
 .
 
 
 .
-![[/Main/Wiki Link.png]]
+![[Help/Wiki_Image.png]]
 .
-<p><img src="/Main/Wiki_Link.png" /></p>
-.
-
-
-.
-Here is a ![[Wiki Link.png]]
-.
-<p>Here is a <img src="./Wiki_Link.png" /></p>
+<p><img src="./Help/Wiki_Image.png" /></p>
 .
 
 
 .
-![[Wiki Link]]s are cool
+![[/Main/Wiki_Image.png]]
 .
-<p><img src="./Wiki_Link" />s are cool</p>
+<p><img src="/Main/Wiki_Image.png" /></p>
+.
+
+
+.
+Here is a ![[Wiki_Image.png]]
+.
+<p>Here is a <img src="./Wiki_Image.png" /></p>
 .
 
 
 .
-Click ![[Wiki Link.png|here]] to learn about wiki links
+![[Wiki_Image]]s are cool
 .
-<p>Click <img src="./Wiki_Link.png" alt="here" /> to learn about wiki links</p>
+<p><img src="./Wiki_Image" />s are cool</p>
+.
+
+
+.
+Click ![[Wiki_Image.png|here]] to learn about wiki Images
+.
+<p>Click <img src="./Wiki_Image.png" alt="here" /> to learn about wiki Images</p>
 .
 
 .
-Also, ![[Wiki.Link.png|Wiki "Links" can use punctuation!]]
+Also, ![[Wiki.Link.png|Wiki "Images" can use punctuation!]]
 .
-<p>Also, <img src="./Wiki.Link.png" alt="Wiki &quot;Links&quot; can use punctuation!" /></p>
-.
-
-.
-This is a ![[Hyphenated-Wiki-Link.png]]
-.
-<p>This is a <img src="./Hyphenated-Wiki-Link.png" /></p>
+<p>Also, <img src="./Wiki.Link.png" alt="Wiki &quot;Images&quot; can use punctuation!" /></p>
 .
 
 .
-This is ![[not a valid wiki link]
+This is a ![[Hyphenated-Image.png]]
 .
-<p>This is ![[not a valid wiki link]</p>
+<p>This is a <img src="./Hyphenated-Image.png" /></p>
 .
 
 .
-This is ![not a valid wiki link]] either
+This is ![[not a valid image]
 .
-<p>This is ![not a valid wiki link]] either</p>
+<p>This is ![[not a valid image]</p>
+.
+
+.
+This is ![not a valid image]] either
+.
+<p>This is ![not a valid image]] either</p>
 .
