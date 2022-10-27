@@ -10,7 +10,7 @@ module.exports = (options) => {
     baseURL: '/',
     relativeBaseURL: './',
     makeAllLinksAbsolute: false,
-    uriSuffix: '.png',
+    uriSuffix: '',
     htmlAttributes: {
     },
     postProcessPageName: (pageName) => {
