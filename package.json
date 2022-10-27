@@ -1,6 +1,6 @@
 {
   "name": "markdown-it-obsidian-images",
-  "version": "1.2.0",
+  "version": "1.0.0",
   "description": "Obsidian-compatible image syntax for the markdown-it parser",
   "main": "index.js",
   "scripts": {
