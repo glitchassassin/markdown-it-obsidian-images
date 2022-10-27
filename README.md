@@ -1,30 +1,30 @@
-# Markdown-It Wikilinks
+# Markdown-It Obsidian Images
 
-[![Build Status](https://travis-ci.org/jsepia/markdown-it-wikilinks.svg?branch=master)](https://travis-ci.org/jsepia/markdown-it-wikilinks) [![Coverage Status](https://coveralls.io/repos/github/jsepia/markdown-it-wikilinks/badge.svg?branch=master)](https://coveralls.io/github/jsepia/markdown-it-wikilinks?branch=master)
+[![Build Status](https://travis-ci.org/glitchassassin/markdown-it-obsidian-images.svg?branch=master)](https://travis-ci.org/glitchassassin/markdown-it-obsidian-images) [![Coverage Status](https://coveralls.io/repos/github/glitchassassin/markdown-it-obsidian-images/badge.svg?branch=master)](https://coveralls.io/github/glitchassassin/markdown-it-obsidian-images?branch=master)
 
-Renders [Wikimedia-style links](https://www.mediawiki.org/wiki/Help:Links#Internal_links) in [markdown-it](https://github.com/markdown-it/markdown-it). This is useful for making Markdown-based wikis.
+Renders [Obsidian-style images](https://help.obsidian.md/How+to/Format+your+notes#Images) in [markdown-it](https://github.com/markdown-it/markdown-it). This is useful for making Obsidian-based blogs or digital gardens..
 
 ## Usage
 
 Install this into your project:
 
 ```bash
-npm --save install markdown-it-wikilinks
+npm --save install markdown-it-obsidian-images
 ```
 
 ...and *use* it:
 
 ```js
-const wikilinks = require('markdown-it-wikilinks')(options)
+const obsidianImages = require('markdown-it-obsidian-images')(options)
 const md = require('markdown-it')()
-    .use(wikilinks)
-    .render('Click [[Wiki Links|here]] to learn about [[/Wiki]] links.')
+    .use(obsidianImages)
+    .render('![[Image1|A beautiful image]] [[/Image2]]')
 ```
 
 **Output:**
 
 ```html
-<p>Click <a href="./Wiki_Links.html">here</a> to learn about <a href="/Wiki.html">Wiki</a> links.</p>
+<p><img src="./Image1.png" alt="A beautiful image" /> <img src="/Image2.png" /></p>
 ```
 
 ## Options
@@ -33,13 +33,13 @@ const md = require('markdown-it')()
 
 **Default:** `/`
 
-The base URL for absolute wiki links.
+The base URL for absolute image URLs.
 
 ```js
 const html = require('markdown-it')()
-  .use(require('markdown-it-wikilinks')({ baseURL: '/wiki/' }))
-  .render('[[/Main Page]]')
-  // <p><a href="/wiki/Main_Page.html">Main Page</a></p>
+  .use(require('markdown-it-obsidian-images')({ baseURL: '/content/' }))
+  .render('![[/Hero Image]]')
+  // <p><img src="/content/Hero_Image.png" /></p>
 ```
 
 ### `relativeBaseURL`
@@ -50,28 +50,28 @@ The base URL for relative wiki links.
 
 ```js
 const html = require('markdown-it')()
-  .use(require('markdown-it-wikilinks')({ relativeBaseURL: '#', suffix: '' }))
-  .render('[[Main Page]]')
-  // <p><a href="#Main_Page">Main Page</a></p>
+  .use(require('markdown-it-obsidian-images')({ relativeBaseURL: '/content/', suffix: '' }))
+  .render('![[Hero Image]]')
+  // <p><img src="/content/Hero_Image" /></p>
 ```
 
 ### `makeAllLinksAbsolute`
 
 **Default:** `false`
 
-Render all wiki links as absolute links.
+Render all image URLs as absolute paths.
 
 ### `uriSuffix`
 
-**Default:** `.html`
+**Default:** `.png`
 
 Append this suffix to every URL.
 
 ```js
 const html = require('markdown-it')()
-  .use(require('markdown-it-wikilinks')({ uriSuffix: '.php' }))
-  .render('[[Main Page]]')
-  // <p><a href="./Main_Page.php">Main Page</a></p>
+  .use(require('markdown-it-obsidian-images')({ uriSuffix: '.jpg' }))
+  .render('![[Hero Image]]')
+  // <p><img src="./Hero_Image.jpg" /></p>
 ```
 
 ### `htmlAttributes`
@@ -82,50 +82,17 @@ An object containing HTML attributes to be applied to every link.
 
 ```js
 const attrs = {
-  'class': 'wikilink',
-  'rel': 'nofollow'
+  'class': 'full-width'
 }
 const html = require('markdown-it')()
-  .use(require('markdown-it-wikilinks')({ htmlAttributes: attrs }))
-  .render('[[Main Page]]')
-  // <p><a href="./Main_Page.html" class="wikilink" rel="nofollow">Main Page</a></p>
+  .use(require('markdown-it-obsidian-images')({ htmlAttributes: attrs }))
+  .render('![[Hero Image]]')
+  // <p><img src="./Hero_Image.png" class="full-width" /></p>
 ```
 
-### `generatePageNameFromLabel`
+### `postProcessImageName`
 
-Unless otherwise specified, the labels of the links are used as the targets. This means that a non-[piped](https://meta.wikimedia.org/wiki/Help:Piped_link) link such as `[[Slate]]` will point to the `Slate` page on your website.
-
-But say you wanted a little more flexibility - like being able to have `[[Slate]]`, `[[slate]]`, `[[SLATE]]` and `[[Slate!]]` to all point to the same page. Well, you can do this by providing your own custom `generatePageNameFromLabel` function.
-
-#### Example
-
-```js
-const _ = require('lodash')
-
-function myCustomPageNameGenerator(label) {
-  return label.split('/').map(function(pathSegment) {
-    // clean up unwanted characters, normalize case and capitalize the first letter
-    pathSegment = _.deburr(pathSegment)
-    pathSegment = pathSegment.replace(/[^\w\s]/g, '')
-
-    // normalize case
-    pathSegment = _.capitalize(pathSegment.toLowerCase())
-
-    return pathSegment
-  })
-}
-
-const html = require('markdown-it')()
-  .use(require('markdown-it-wikilinks')({ generatePageNameFromLabel: myCustomPageNameGenerator }))
-  .render('Vive la [[révolution!]] VIVE LA [[RÉVOLUTION!!!]]')
-  // <p>Vive la <a href="./Revolution.html">révolution!</a> VIVE LA <a href="./Revolution.html">RÉVOLUTION!!!</a></p>
-```
-
-Please note that the `generatePageNameFromLabel` function does not get applied for [piped links](https://meta.wikimedia.org/wiki/Help:Piped_link) such as `[[/Misc/Cats/Slate|kitty]]` since those already come with a target. 
-
-### `postProcessPageName`
-
-A transform applied to every page name. You can override it just like `generatePageNameFromLabel` (see above).
+A transform applied to every page name.
 
 The default transform does the following things:
 
@@ -133,17 +100,29 @@ The default transform does the following things:
 * [sanitize](https://github.com/parshap/node-sanitize-filename) the string
 * replace spaces with underscores
 
+#### Example
+
+```js
+const _ = require('slugify')
+
+function myCustomPostProcessImageName(label) {
+  return label.split('/').map(function(pathSegment) {
+    return slugify(pathSegment.toLowerCase())
+  })
+}
+
+const html = require('markdown-it')()
+  .use(require('markdown-it-obsidian-images')({ postProcessImageName: myCustomPostProcessImageName }))
+  .render('![[Hello World]]')
+  // <p><img src="./hello-world.png" /></p>
+```
+
 ### `postProcessLabel`
 
-A transform applied to every link label. You can override it just like `generatePageNameFromLabel` (see above).
+A transform applied to every image alt label. You can override it just like `postProcessImageName` (see above).
 
-All the default transform does is trim surrounding whitespace.
-
-## TODO
-
-* Unit test options
-* Add examples to `postProcessPageName` and `postProcessLabel`
+The default transform trims surrounding whitespace and replaces the characters `<&"` with html-encoded equivalents
 
 ## Credits
 
-Based on [markdown-it-ins](https://github.com/markdown-it/markdown-it-ins) by Vitaly Puzrin, Alex Kocharin.
+Based on [markdown-it-wikilinks](https://github.com/jsepia/markdown-it-wikilinks/) by Julio Sepia
